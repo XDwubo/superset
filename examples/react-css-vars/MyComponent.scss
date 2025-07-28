@@ -1,0 +1,76 @@
+// MyComponent.scss
+.my-component {
+  // 设置默认值，防止变量未定义
+  --component-color: #3498db;
+  --component-size: 16px;
+  --component-border-radius: 4px;
+  --component-padding: 16px;
+  
+  // 使用CSS变量
+  background-color: var(--component-color);
+  border-radius: var(--component-border-radius);
+  padding: var(--component-padding);
+  font-size: var(--component-size);
+  
+  // 可以在计算中使用CSS变量
+  box-shadow: 0 2px calc(var(--component-padding) / 4) rgba(0, 0, 0, 0.1);
+  
+  // 动态计算相关颜色
+  border: 1px solid color-mix(in srgb, var(--component-color), black 20%);
+  
+  // 响应式设计
+  @media (max-width: 768px) {
+    font-size: calc(var(--component-size) * 0.9);
+    padding: calc(var(--component-padding) * 0.8);
+  }
+  
+  // 交互状态
+  &:hover {
+    background-color: color-mix(in srgb, var(--component-color), white 10%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px calc(var(--component-padding) / 2) rgba(0, 0, 0, 0.15);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    background-color: color-mix(in srgb, var(--component-color), black 5%);
+  }
+  
+  // 嵌套元素使用相同的变量
+  &__content {
+    color: color-mix(in srgb, var(--component-color), black 70%);
+    line-height: calc(var(--component-size) * 1.5);
+    
+    // 可以创建基于主变量的派生变量
+    --content-margin: calc(var(--component-padding) / 2);
+    margin: var(--content-margin);
+  }
+  
+  // 修饰符类可以改变特定属性
+  &--large {
+    --component-size: calc(var(--component-size) * 1.2);
+    --component-padding: calc(var(--component-padding) * 1.5);
+  }
+  
+  &--small {
+    --component-size: calc(var(--component-size) * 0.8);
+    --component-padding: calc(var(--component-padding) * 0.7);
+  }
+  
+  // 主题变体
+  &--primary {
+    --component-color: #3498db;
+  }
+  
+  &--success {
+    --component-color: #2ecc71;
+  }
+  
+  &--warning {
+    --component-color: #f39c12;
+  }
+  
+  &--danger {
+    --component-color: #e74c3c;
+  }
+}

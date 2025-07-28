@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCSS Props变量使用示例</title>
+</head>
+<body>
+    <div id="app">
+        <!-- React示例使用 -->
+        <section class="demo-section">
+            <h2>React + CSS变量示例</h2>
+            <div class="demo-container">
+                <!-- 基础使用 -->
+                <MyComponent color="#3498db" size="16" borderRadius="8" padding="20">
+                    这是一个基础的组件示例
+                </MyComponent>
+                
+                <!-- 不同主题 -->
+                <MyComponent color="#e74c3c" size="18" borderRadius="12" padding="24">
+                    这是红色主题的组件
+                </MyComponent>
+                
+                <MyComponent color="#2ecc71" size="14" borderRadius="4" padding="16">
+                    这是绿色主题的小尺寸组件
+                </MyComponent>
+            </div>
+        </section>
+
+        <!-- Vue示例使用 -->
+        <section class="demo-section">
+            <h2>Vue + SCSS动态样式示例</h2>
+            <div class="demo-container">
+                <!-- 基础使用 -->
+                <dynamic-component 
+                    title="基础组件"
+                    primary-color="#3498db"
+                    :font-size="16"
+                    theme="light"
+                    size="medium"
+                    @button-click="handleClick">
+                    这是Vue组件的内容区域
+                </dynamic-component>
+
+                <!-- 暗色主题 -->
+                <dynamic-component 
+                    title="暗色主题"
+                    primary-color="#9b59b6"
+                    secondary-color="#8e44ad"
+                    :font-size="18"
+                    theme="dark"
+                    size="large"
+                    @button-click="handleClick">
+                    暗色主题下的组件展示
+                </dynamic-component>
+
+                <!-- 彩色渐变主题 -->
+                <dynamic-component 
+                    title="彩色主题"
+                    primary-color="#ff6b6b"
+                    secondary-color="#4ecdc4"
+                    :font-size="14"
+                    theme="colorful"
+                    size="small"
+                    button-text="立即体验"
+                    @button-click="handleClick">
+                    彩色渐变背景的组件
+                </dynamic-component>
+            </div>
+        </section>
+
+        <!-- JavaScript动态主题示例 -->
+        <section class="demo-section">
+            <h2>JavaScript动态主题控制</h2>
+            <div class="theme-controls">
+                <button onclick="setTheme('blue')">蓝色主题</button>
+                <button onclick="setTheme('green')">绿色主题</button>
+                <button onclick="setTheme('purple')">紫色主题</button>
+                <button onclick="setTheme('dark')">暗色主题</button>
+            </div>
+            
+            <div class="themed-components">
+                <div class="theme-component">
+                    <h3>动态主题组件 1</h3>
+                    <p>这个组件的样式会根据全局主题变化</p>
+                    <button class="theme-button">主题按钮</button>
+                </div>
+                
+                <div class="theme-component">
+                    <h3>动态主题组件 2</h3>
+                    <p>CSS变量让主题切换变得简单</p>
+                    <button class="theme-button">另一个按钮</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <style>
+        /* 全局主题变量 */
+        :root {
+            --theme-primary: #3498db;
+            --theme-secondary: #2ecc71;
+            --theme-background: #ffffff;
+            --theme-text: #333333;
+            --theme-border: #e0e0e0;
+            --theme-shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="blue"] {
+            --theme-primary: #3498db;
+            --theme-secondary: #2980b9;
+        }
+
+        [data-theme="green"] {
+            --theme-primary: #2ecc71;
+            --theme-secondary: #27ae60;
+        }
+
+        [data-theme="purple"] {
+            --theme-primary: #9b59b6;
+            --theme-secondary: #8e44ad;
+        }
+
+        [data-theme="dark"] {
+            --theme-primary: #3498db;
+            --theme-secondary: #2ecc71;
+            --theme-background: #2c3e50;
+            --theme-text: #ecf0f1;
+            --theme-border: #34495e;
+            --theme-shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        /* 基础样式 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--theme-background);
+            color: var(--theme-text);
+            margin: 0;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .demo-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid var(--theme-border);
+            border-radius: 8px;
+            background-color: var(--theme-background);
+        }
+
+        .demo-section h2 {
+            color: var(--theme-primary);
+            border-bottom: 2px solid var(--theme-primary);
+            padding-bottom: 10px;
+        }
+
+        .demo-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .theme-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .theme-controls button {
+            background-color: var(--theme-primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-controls button:hover {
+            background-color: var(--theme-secondary);
+        }
+
+        .themed-components {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .theme-component {
+            background-color: var(--theme-background);
+            border: 2px solid var(--theme-primary);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px var(--theme-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .theme-component:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px var(--theme-shadow);
+        }
+
+        .theme-component h3 {
+            color: var(--theme-primary);
+            margin-top: 0;
+        }
+
+        .theme-button {
+            background-color: var(--theme-primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-button:hover {
+            background-color: var(--theme-secondary);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .demo-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .themed-components {
+                grid-template-columns: 1fr;
+            }
+            
+            .theme-controls {
+                justify-content: center;
+            }
+        }
+    </style>
+
+    <script>
+        // 主题管理器
+        class ThemeManager {
+            static setTheme(themeName) {
+                document.documentElement.setAttribute('data-theme', themeName);
+                
+                // 保存主题选择到localStorage
+                localStorage.setItem('preferred-theme', themeName);
+            }
+            
+            static loadSavedTheme() {
+                const savedTheme = localStorage.getItem('preferred-theme');
+                if (savedTheme) {
+                    this.setTheme(savedTheme);
+                }
+            }
+        }
+
+        // 主题切换函数
+        function setTheme(themeName) {
+            ThemeManager.setTheme(themeName);
+        }
+
+        // React组件示例（伪代码，实际需要React环境）
+        function MyComponent({ color, size, borderRadius, padding, children }) {
+            const cssVars = {
+                '--component-color': color,
+                '--component-size': size + 'px',
+                '--component-border-radius': borderRadius + 'px',
+                '--component-padding': padding + 'px'
+            };
+
+            return `
+                <div class="my-component" style="${Object.entries(cssVars).map(([key, value]) => `${key}: ${value}`).join('; ')}">
+                    <div class="my-component__content">
+                        ${children}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Vue组件示例的点击处理
+        function handleClick() {
+            console.log('按钮被点击了！');
+            alert('这演示了Vue组件的事件处理');
+        }
+
+        // 页面加载时应用保存的主题
+        document.addEventListener('DOMContentLoaded', function() {
+            ThemeManager.loadSavedTheme();
+        });
+
+        // 演示动态CSS变量操作
+        function demonstrateDynamicVars() {
+            const components = document.querySelectorAll('.theme-component');
+            
+            components.forEach((component, index) => {
+                // 为每个组件设置不同的动态变量
+                const hue = (index * 60) % 360;
+                component.style.setProperty('--dynamic-hue', hue);
+                component.style.setProperty('--component-accent', `hsl(${hue}, 70%, 50%)`);
+            });
+        }
+
+        // 定期更新一些动态效果
+        setInterval(demonstrateDynamicVars, 3000);
+    </script>
+</body>
+</html>
